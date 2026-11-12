@@ -1,0 +1,16 @@
+{
+  "input_video": "data\\raw\\traffic_video_2.mp4",
+  "total_vehicles": 128,
+  "total_pedestrians": 47,
+  "vehicles_per_class": {
+    "car": 74,
+    "truck": 23,
+    "bus": 2,
+    "motorcycle": 28,
+    "bicycle": 1
+  },
+  "traffic_level": "MODERATE",
+  "average_vehicle_speed_kmh": 5.473175176200162,
+  "speed_estimated": true,
+  "annotated_video_path": "outputs\\video2\\videos\\traffic_video_2_annotated.mp4"
+}

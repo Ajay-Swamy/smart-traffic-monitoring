@@ -1,0 +1,16 @@
+{
+  "total_vehicles": 128,
+  "total_pedestrians": 47,
+  "vehicles_per_class": {
+    "car": 74,
+    "truck": 23,
+    "bus": 2,
+    "motorcycle": 28,
+    "bicycle": 1
+  },
+  "traffic_level": "MODERATE",
+  "video_duration_s": 27.033333333333335,
+  "frames_processed": 812,
+  "average_vehicle_speed_kmh": 5.473175176200162,
+  "speed_estimated": true
+}
