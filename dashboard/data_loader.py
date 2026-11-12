@@ -1,9 +1,8 @@
-
 from __future__ import annotations
 
 import json
 from dataclasses import dataclass
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 
 import pandas as pd
 
@@ -34,10 +33,9 @@ def load_dashboard_data(output_dir: Path) -> DashboardData:
     annotated_video_path = None
 
     if summary.get("annotated_video_path"):
-        candidate = Path(summary["annotated_video_path"])
-
-        if not candidate.exists():
-            candidate = output_dir / "videos" / candidate.name
+        # Take only the file name, so Windows paths also work on the server
+        file_name = PureWindowsPath(summary["annotated_video_path"]).name
+        candidate = output_dir / "videos" / file_name
 
         h264_candidate = candidate.with_name(
             f"{candidate.stem}_h264{candidate.suffix}"

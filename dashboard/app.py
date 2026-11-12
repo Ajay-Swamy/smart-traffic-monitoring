@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 import altair as alt
-import imageio_ffmpeg
+
 import streamlit as st
 
 from data_loader import load_dashboard_data
@@ -13,6 +13,12 @@ from data_loader import load_dashboard_data
 ROOT = Path(__file__).resolve().parent.parent  # repo root
 OUTPUTS = ROOT / "outputs"
 UPLOAD_DIR = ROOT / "data" / "raw"
+
+try:
+    import traffic_intelligence  # noqa: F401
+    PIPELINE_AVAILABLE = True
+except ImportError:
+    PIPELINE_AVAILABLE = False
 
 _LEVEL_COLORS = {"LOW": "#28a745", "MODERATE": "#fd7e14", "HIGH": "#dc3545"}
 
@@ -26,6 +32,7 @@ st.caption(
 
 def convert_to_h264(src: Path) -> Path:
     """Re-encode to H.264 so browsers can play it."""
+    import imageio_ffmpeg
     dst = src.with_name(f"{src.stem}_h264{src.suffix}")
     subprocess.run(
         [
@@ -127,7 +134,8 @@ def render(data) -> None:
 
 
 # ---------------- Sidebar: choose source ----------------
-mode = st.sidebar.radio("Mode", ["Upload new video", "View saved results"])
+modes = (["Upload new video"] if PIPELINE_AVAILABLE else []) + ["View saved results"]
+mode = st.sidebar.radio("Mode", modes)
 
 if mode == "Upload new video":
     uploaded = st.file_uploader("Upload a traffic video",
